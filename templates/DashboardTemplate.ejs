@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>
+        <%=title%>
+    </title>
+    <link rel="stylesheet" href="/mystyle.css">
+    <link rel="shortcut icon" href="<%=applogo%>">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/all.min.css">
+    <link rel="stylesheet" href="/sidebar.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/jquery.min.js"></script>
+    <script src="/bootstrap.min.js"></script>
+    <script src="/popper.min.js"></script>
+    <script src="/Sidebar.js"></script>
+</head>
+
+<body class="main_color">
+    <nav class="navbar navbar-expand-lg navbar-light navigation fixed-top">
+        <a class="navbar-brand" href="/">
+            <img style="height: 30px; width: 50px;" src="<%=applogo%>">
+            <%-appname%>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+            <ul class="navbar-nav mr-auto">
+                <% for(let i = 0; i < nav.length; i++){ %>
+                    <% if (nav[i].position === 'left') { %>
+                        <% if (nav[i].type == 'link') { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<%=nav[i].url%>">
+                                    <%-nav[i].name%>
+                                </a>
+                            </li>
+                            <% } %>
+                                <% if (nav[i].type == 'dropdown') { %>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <%=nav[i].name%>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <%for(let j = 0; j < nav[i].details.length; j++){%>
+                                                <a class="dropdown-item" href="<%=nav[i].details[j].url%>">
+                                                    <%=nav[i].details[j].name%>
+                                                </a>
+                                                <%}%>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                        <% } %>
+                                            <% } %>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <% for(let i = 0; i < nav.length; i++){ %>
+                    <% if (nav[i].position === 'right') { %>
+                        <% if (nav[i].type == 'link') { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<%=nav[i].url%>">
+                                    <%-nav[i].name%>
+                                </a>
+                            </li>
+                            <% } %>
+                                <% if (nav[i].type == 'dropdown') { %>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <%=nav[i].name%>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <%for(let j = 0; j < nav[i].details.length; j++){%>
+                                                <a class="dropdown-item" href="<%=nav[i].details[j].url%>">
+                                                    <%=nav[i].details[j].name%>
+                                                </a>
+                                                <%}%>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                        <% } %>
+                                            <% } %>
+            </ul>
+
+
+        </div>
+    </nav>
+
+    <div class="container bg-white" style="padding-top: 65px;">
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel">
+                    <h4>Search</h4>
+                    <label class="sr-only" for="inlineFormInputGroup"></label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Type & Press Enter">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <% if((typeof Superbar !== 'undefined' && Superbar !== false) || (typeof adminbar !== 'undefined' && adminbar !== false)){ %>
+
+                        <a href="#" class="navbar-brand" style="color: #01579B;" onclick="$('.aside').asidebar('open')">
+                            <i class="fas fa-lock"></i>
+                        </a>
+
+                        <% } %>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar2" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbar2">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item">
+                                        <a href="/Dashboard" class="nav-link">
+                                            Go Back
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                </nav>
+                <br>
+                <h4>Shop</h4>
+                <br>
+                <div class="Main-Options-Tile">
+                    <div class="Tile">
+                        <a href="/Admin/Shop/Categories">Categories</a>
+                    </div>
+                    <div class="Tile">
+                        <a href="/Admin/Shop/SubCategories">Sub Categories</a>
+                    </div>
+                    <div class="Tile">
+                        <a href="/Admin/Shop/Products">Products</a>
+                    </div>
+                    <div class="Tile">
+                        <a href="/Admin/Shop/Bundles">Bundles</a>
+                    </div>
+                    <div class="Tile">
+                        <a href="/Admin/Shop/Discount-Code">Discount Codes</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-md-4">
+                <a href="#" class="link-block">Help Center</a>
+                <a href="#" class="link-block">privacy policies</a>
+                <a href="#" class="link-block">Terms and conditions</a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="link-block">Careers</a>
+                <a href="#" class="link-block">Track Your Order</a>
+                <a href="#" class="link-block">Return and Refund Policies</a>
+
+            </div>
+            <div class="col-md-4">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Your Email Address" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+                <p class="text-justify link-block">House # 21, Madni Mohalla Rawalpindi, Pakistan.</p>
+            </div>
+        </div>
+        <div class="row" style="padding: 30px 0px;">
+            <div class="col-md-6">
+                <p>copyrights reserved &copy; 2018</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Categories</h3>
+                    <a class="btn btn-danger" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="aside">
+        <div class="widget">
+            <div class="widget-inside">
+                <div class="aside-header">
+                    Administrator
+                    <span class="close" data-dismiss="aside" aria-hidden="true">&times;</span>
+                </div>
+                <div class="aside-contents">
+                    <% if(typeof Superbar !== 'undefined'){ %>
+                        <ul class="list-group list-group-flush">
+                            <% for(k = 0; k < Superbar.length; k++){ %>
+                                <%if(Superbar[k].type == 'link'){%>
+                                    <li class="list-group-item <%=Superbar[k].class.li %>">
+                                        <a href="<%=Superbar[k].url %>" class="<%=Superbar[k].class.a %>">
+                                            <%=Superbar[k].name%>
+                                        </a>
+                                    </li>
+                                    <% }else if(Superbar[k].type == 'dropdown'){
+                                        %>
+                                        <li class="list-group-item <%=sidebar[k].class.li %>">
+                                            <a class="<%=Superbar[k].class.a %>" href="<%=Superbar[k].url %>" data-toggle="collapse" data-target="#SuperbarExpand<%=k%>"
+                                                aria-expanded="false">
+                                                <%=Superbar[k].name%>
+                                                    <span class="float-right">
+                                                        <i class="fas fa-angle-down"></i>
+                                                    </span>
+                                            </a>
+                                        </li>
+                                        <div class="collapse" id="SuperbarExpand<%=k%>">
+                                            <% for(j = 0; j < Superbar[k].details.length; j++){ %>
+                                                <li class="list-group-item <%=Superbar[k].class.li %>">
+                                                    <a class="<%=Superbar[k].class.a %>" href="<%=Superbar[k].details[j].url %>">
+                                                        <i class="fas fa-angle-right"></i>
+                                                        <%=Superbar[k].details[j].name%>
+                                                    </a>
+                                                </li>
+                                                <% } %>
+                                        </div>
+                                        <%
+                                        } %>
+
+                                            <% } %>
+                        </ul>
+                        <% } %>
+                            <br>
+                            <% if(typeof adminbar !== 'undefined'){ %>
+                                <ul class="list-group list-group-flush">
+                                    <% for(k = 0; k < adminbar.length; k++){ %>
+                                        <%if(adminbar[k].type == 'link'){%>
+                                            <li class="list-group-item <%=adminbar[k].class.li %>">
+                                                <a href="<%=adminbar[k].url %>" class="<%=adminbar[k].class.a %>">
+                                                    <%=adminbar[k].name%>
+                                                </a>
+                                            </li>
+                                            <% }else if(adminbar[k].type == 'dropdown'){
+                                            %>
+                                                <li class="list-group-item <%=adminbar[k].class.li %>">
+                                                    <a class="<%=adminbar[k].class.a %>" href="<%=adminbar[k].url %>" data-toggle="collapse" data-target="#adminExpand<%=k%>"
+                                                        aria-expanded="false">
+                                                        <%=adminbar[k].name%>
+                                                            <span class="float-right">
+                                                                <i class="fas fa-angle-down"></i>
+                                                            </span>
+                                                    </a>
+                                                </li>
+                                                <div class="collapse" id="adminExpand<%=k%>">
+                                                    <% for(j = 0; j < adminbar[k].details.length; j++){ %>
+                                                        <li class="list-group-item <%=adminbar[k].class.li %>">
+                                                            <a class="<%=adminbar[k].class.a %>" href="<%=adminbar[k].details[j].url %>">
+                                                                <i class="fas fa-angle-right"></i>
+                                                                <%=adminbar[k].details[j].name%>
+                                                            </a>
+                                                        </li>
+                                                        <% } %>
+                                                </div>
+                                                <%
+                                            } %>
+
+                                                    <% } %>
+                                </ul>
+                                <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aside-backdrop"></div>
+
+</body>
+
+</html>

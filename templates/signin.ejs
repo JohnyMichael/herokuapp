@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>
+        <%=title%>
+    </title>
+    <link rel="stylesheet" href="/mystyle.css">
+    <link rel="shortcut icon" href="<%=applogo%>">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/all.min.css">
+</head>
+
+<body class="main_color">
+    <nav class="navbar navbar-expand-lg navbar-light navigation fixed-top">
+        <a class="navbar-brand" href="/">
+            <img style="height: 30px; width: 50px;" src="<%=applogo%>">
+            <%-appname%>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+            <ul class="navbar-nav mr-auto">
+                <% for(let i = 0; i < nav.length; i++){ %>
+                    <% if (nav[i].position === 'left') { %>
+                        <% if (nav[i].type == 'link') { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<%=nav[i].url%>">
+                                    <%-nav[i].name%>
+                                </a>
+                            </li>
+                            <% } %>
+                                <% if (nav[i].type == 'dropdown') { %>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <%=nav[i].name%>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <%for(let j = 0; j < nav[i].details.length; j++){%>
+                                                <a class="dropdown-item" href="<%=nav[i].details[j].url%>">
+                                                    <%=nav[i].details[j].name%>
+                                                </a>
+                                                <%}%>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                        <% } %>
+                                            <% } %>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <% for(let i = 0; i < nav.length; i++){ %>
+                    <% if (nav[i].position === 'right') { %>
+                        <% if (nav[i].type == 'link') { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<%=nav[i].url%>">
+                                    <%-nav[i].name%>
+                                </a>
+                            </li>
+                            <% } %>
+                                <% if (nav[i].type == 'dropdown') { %>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <%=nav[i].name%>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <%for(let j = 0; j < nav[i].details.length; j++){%>
+                                                <a class="dropdown-item" href="<%=nav[i].details[j].url%>">
+                                                    <%=nav[i].details[j].name%>
+                                                </a>
+                                                <%}%>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                        <% } %>
+                                            <% } %>
+            </ul>
+
+
+        </div>
+    </nav>
+
+    <div class="container bg-white" style="padding-top: 65px;">
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <h4>Search</h4>
+                    <label class="sr-only" for="inlineFormInputGroup"></label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Type & Press Enter">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <h4 style="padding-top: 5px;">Cateories</h4>
+                <a class="main-categories-link" href="">Laptops</a>
+                <a class="main-categories-link" href="">Personal Computers</a>
+                <a class="main-categories-link" href="">Smart Phones</a>
+                <br>
+                <br>
+                <h4 style="padding-top: 10px;">Compare</h4>
+                <div class="Compare-division">
+                    <ul class="list-group" style="margin-bottom: 5px;">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="comapare-delete">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a> Product Name
+                            <span class="compare-price">$200</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="comapare-delete">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a> Product Name
+                            <span class="compare-price">$200</span>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary">Continue</a>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+                <h3>Signin</h3>
+                <br>
+                <%if(typeof errors !== 'undefined'){%>
+                    <div class="errors">
+                        <%=errors%>
+                    </div>
+                <%}%>
+
+                        <form action="/Auth/Signin" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="emailorusername">Email address / Username</label>
+                                        <input type="text" required name="emailorusername" class="form-control" id="emailorusername" aria-describedby="emailHelp" placeholder="abc@abc.com or abc">
+                                        <small id="emailHelp" class="form-text text-muted">You can use either your email address or username.</small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" required name="password" class="form-control" id="password" placeholder="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-success">Signin</button>
+                            </div>
+
+                        </form>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-md-4">
+                <a href="#" class="link-block">Help Center</a>
+                <a href="#" class="link-block">privacy policies</a>
+                <a href="#" class="link-block">Terms and conditions</a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="link-block">Careers</a>
+                <a href="#" class="link-block">Track Your Order</a>
+                <a href="#" class="link-block">Return and Refund Policies</a>
+
+            </div>
+            <div class="col-md-4">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Your Email Address" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+                <p class="text-justify link-block">House # 21, Madni Mohalla Rawalpindi, Pakistan.</p>
+            </div>
+        </div>
+        <div class="row" style="padding: 30px 0px;">
+            <div class="col-md-6">
+                <p>copyrights reserved &copy; 2018</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Categories</h3>
+                    <a class="btn btn-danger" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/jquery.min.js"></script>
+    <script src="/popper.min.js"></script>
+    <script src="/bootstrap.min.js"></script>
+</body>
+
+</html>
